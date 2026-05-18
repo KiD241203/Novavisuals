@@ -1,0 +1,231 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}NovAVisualS - Gallery{% endblock title %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/gallery.css' %}"> {% endblock css %}
+
+{% block body %}
+
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="ph-inner">
+    <div>
+      <div class="eyebrow"><div class="ey-line"></div><span class="ey-txt">Our work</span></div>
+      <h1 class="ph-title">Moments we've <em>captured.</em></h1>
+      <p class="ph-desc" id='hero-desc'>A curated collection of weddings, pre-wedding shoots, and events across Bangalore and beyond.</p>
+    </div>
+    <div class="ph-right">
+      <div class="ph-num" id="count-display">12</div>
+      <div class="ph-num-label">photographs</div>
+    </div>
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="ftabs">
+    <button class="fbtn active" data-cat="all">All</button>
+    <button class="fbtn" data-cat="wedding" id='wedding'>Wedding</button>
+    <button class="fbtn" data-cat="pre-wedding">Pre-Wedding</button>
+    <button class="fbtn" data-cat="save_tha_date">Save the date</button>
+    <button class="fbtn" data-cat="birthday">Birthday</button>
+    <button class="fbtn" data-cat="events">Events</button>
+    <button class="fbtn" data-cat="video">Video</button>
+  </div>
+  <div class="col-toggle">
+    <span class="col-label">Columns</span>
+    <button class="cbtn" data-cols="2">2</button>
+    <button class="cbtn active" data-cols="3">3</button>
+    <button class="cbtn" data-cols="4">4</button>
+    <button class="cbtn" data-cols="5">5</button>
+  </div>
+</div>
+
+<!-- PINTEREST MASONRY -->
+<div class="masonry-wrap">
+  <div class="masonry cols-3" id="masonry">
+
+    
+    {% for work in works %}
+      
+    
+      
+
+    <div class="pin {{ work.category }}" data-cat="{{ work.category }}" style="animation-delay:0.04s"onclick="openLB('{{ work.file.url }}','{{ work.category }}','{{ work.title }}')">
+      <img src="{{ work.file.url }}" alt="{{ work.category }}">
+      <div class="pin-overlay"><div class="pin-cat">{{ work.category }}</div><div class="pin-label">{{ work.title }}</div><div class="pin-meta">{{ work.description }}</div></div>
+      <div class="pin-actions"><button class="pin-action-btn"><svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><line x1="11" y1="11" x2="14" y2="14"/></svg></button></div>
+    </div>
+
+    {% endfor %}
+
+
+  </div>
+
+  <div class="load-more-wrap">
+    <button class="load-more">Load more work</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLB(event)">
+  <div class="lb-inner">
+    <button class="lb-close" onclick="closeLB()">Close ✕</button>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-caption">
+      <div>
+        <div class="lb-cat" id="lb-cat"></div>
+        <div class="lb-title" id="lb-title"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-mini">
+  <span class="copy">&copy; 2026 CaptureNest. All rights reserved.</span>
+  <div class="legal">
+    <a href="#">Privacy</a><a href="#">Terms</a><a href="/contact/">Contact</a>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.fbtn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const cat=this.dataset.cat;
+    let visible=0;
+    document.querySelectorAll('.pin').forEach((pin,i)=>{
+      const show=cat==='all'||pin.dataset.cat===cat;
+      pin.style.animation='none';
+      if(show){
+        pin.style.display='';
+        setTimeout(()=>{pin.style.animation='pinIn 0.42s '+(i*0.05)+'s both'},10);
+        visible++;
+      } else {
+        pin.style.display='none';
+      }
+    });
+    document.getElementById('count-display').textContent=String(visible).padStart(2,'0');
+  });
+});
+
+document.querySelectorAll('.cbtn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.cbtn').forEach(b=>b.classList.remove('active'));
+    this.classList.add('active');
+    const m=document.getElementById('masonry');
+    m.className='masonry cols-'+this.dataset.cols;
+  });
+});
+
+function openLB(src,cat,title){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-cat').textContent=cat.toUpperCase();
+  document.getElementById('lb-title').textContent=title;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLB(e){
+  if(!e||e.target===document.getElementById('lightbox')||e.currentTarget.classList.contains('lb-close')){
+    document.getElementById('lightbox').classList.remove('open');
+  }
+}
+
+document.querySelectorAll('.pin.video video').forEach(v=>{
+  v.parentElement.addEventListener('click',()=>v.paused?v.play():v.pause());
+});
+
+
+const buttons = document.querySelectorAll(".fbtn");
+const items = document.querySelectorAll(".pin");
+function filterGallery(category) {
+
+    // active button
+    buttons.forEach(btn => {
+        btn.classList.remove("active");
+
+        if (btn.dataset.cat === category) {
+            btn.classList.add("active");
+        }
+    });
+
+    // filter items
+    items.forEach(item => {
+
+        if (category === "all") {
+            item.style.display = "block";
+        }
+
+        else if (item.classList.contains(category)) {
+            item.style.display = "block";
+        }
+
+        else {
+            item.style.display = "none";
+        }
+
+    });
+}
+
+// button click
+buttons.forEach(btn => {
+
+    btn.addEventListener("click", () => {
+
+        const category = btn.dataset.cat;
+
+        filterGallery(category);
+
+        heroDesc.textContent =
+          hero_descriptions[category] ||
+          "A curated collection of weddings, pre-wedding shoots, and events across Bangalore and beyond.";
+
+    });
+
+});
+
+// AUTO OPEN FROM URL
+const params = new URLSearchParams(window.location.search);
+
+const urlCategory = params.get("category");
+
+if (urlCategory) {
+    filterGallery(urlCategory);
+}
+
+
+
+
+const hero_descriptions = {
+
+  wedding:
+    "Timeless wedding stories filled with emotion and elegance.",
+
+  "pre-wedding":
+    "Romantic frames that celebrate your connection beautifully.",
+
+  birthday:
+    "Capturing joyful celebrations and unforgettable smiles.",
+
+  events:
+    "Professional coverage for every special occasion.",
+
+  save_tha_date:
+    "Creative cinematic announcement sessions for modern couples."
+};
+
+const category = params.get("category");
+
+const heroDesc = document.getElementById("hero-desc");
+
+if(category && hero_descriptions[category]){
+  heroDesc.textContent = hero_descriptions[category];
+}
+
+
+
+
+</script>
+
+{% endblock body %}

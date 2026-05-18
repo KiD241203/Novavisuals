@@ -1,0 +1,468 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="theme-color" content="#1a1108">
+  <title>NovAVisualS — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { height: 100%; }
+
+    body {
+      min-height: 100%;
+      min-height: 100dvh;
+      font-family: 'Jost', sans-serif;
+      background: #1a1108;
+      color: #faf8f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* full-page bg photo */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: url('https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1400&q=60') center/cover no-repeat;
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* radial glow */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at 70% 40%, rgba(196,149,106,0.07) 0%, transparent 65%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    :root {
+      --bg:    #1a1108;
+      --bg2:   #211508;
+      --bg3:   #2a1c0f;
+      --bg4:   #33220f;
+      --b1:    rgba(255,255,255,0.07);
+      --b2:    rgba(255,255,255,0.13);
+      --cream: #faf8f5;
+      --stone: #b8a898;
+      --accent:#c4956a;
+      --al:    rgba(196,149,106,0.12);
+      --ab:    rgba(196,149,106,0.35);
+    }
+
+    /* ── card ── */
+    .cn-card {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 400px;
+      background: var(--bg2);
+      border: 1px solid var(--b2);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .cn-topbar {
+      height: 3px;
+      background: linear-gradient(to right, rgba(196,149,106,0.3), var(--accent), rgba(196,149,106,0.3));
+    }
+
+    /* ── header ── */
+    .cn-header {
+      padding: 1.6rem 2rem 1.3rem;
+      border-bottom: 1px solid var(--b1);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    }
+
+    .cn-shield {
+      width: 36px; height: 36px;
+      background: rgba(196,149,106,0.1);
+      border: 1px solid rgba(196,149,106,0.25);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 2px; flex-shrink: 0;
+    }
+    .cn-shield svg { width: 16px; height: 16px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    .cn-brand { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; letter-spacing: 0.1em; color: var(--cream); line-height: 1; }
+    .cn-sub   { font-size: 8px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.28); text-align: center; }
+
+    .cn-eyebrow { display: flex; align-items: center; gap: 9px; margin-top: 0.6rem; }
+    .cn-eline   { width: 20px; height: 1px; background: var(--accent); flex-shrink: 0; }
+    .cn-etxt    { font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+    .cn-title   { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; color: var(--cream); line-height: 1; margin-top: 0.1rem; }
+
+    /* ── body ── */
+    .cn-body { padding: 1.75rem 2rem; }
+
+    .cn-notice {
+      display: flex; align-items: flex-start; gap: 9px;
+      background: rgba(196,149,106,0.07);
+      border: 1px solid rgba(196,149,106,0.18);
+      border-radius: 3px;
+      padding: 10px 12px;
+      margin-bottom: 1.2rem;
+    }
+    .cn-notice svg { width: 13px; height: 13px; stroke: var(--accent); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; margin-top: 1px; }
+    .cn-notice-txt { font-size: 10px; letter-spacing: 0.05em; color: rgba(196,149,106,0.8); line-height: 1.5; }
+
+    .cn-mb { margin-bottom: 1rem; }
+
+    .cn-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.35); display: block; margin-bottom: 6px; }
+
+    .cn-input {
+      font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 300;
+      color: var(--cream); background: var(--bg3);
+      border: 1px solid var(--b1); border-radius: 2px;
+      padding: 11px 14px; outline: none; width: 100%;
+      transition: border-color 0.2s, background 0.2s;
+      -webkit-appearance: none;
+    }
+    .cn-input::placeholder { color: rgba(255,255,255,0.18); }
+    .cn-input:focus { border-color: rgba(196,149,106,0.5); background: var(--bg4); }
+
+    .cn-pw { position: relative; }
+    .cn-pw .cn-input { padding-right: 42px; }
+
+    .cn-eye {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; padding: 4px;
+      display: flex; align-items: center;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cn-eye svg { width: 15px; height: 15px; stroke: rgba(255,255,255,0.3); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+    .cn-eye:hover svg, .cn-eye:focus svg { stroke: var(--accent); }
+
+    /* checkbox */
+    .cn-check-row { display: flex; align-items: center; gap: 8px; margin-bottom: 1.4rem; cursor: pointer; }
+    .cn-check-row input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 14px; height: 14px;
+      border: 1px solid var(--b2); border-radius: 2px;
+      background: var(--bg3); cursor: pointer;
+      position: relative; transition: all 0.18s; flex-shrink: 0;
+    }
+    .cn-check-row input[type="checkbox"]:checked { background: var(--accent); border-color: var(--accent); }
+    .cn-check-row input[type="checkbox"]:checked::after {
+      content: ''; position: absolute; left: 3px; top: 1px;
+      width: 5px; height: 8px;
+      border-right: 1.5px solid #1a1108; border-bottom: 1.5px solid #1a1108;
+      transform: rotate(40deg);
+    }
+    .cn-check-label { font-size: 11px; font-weight: 300; color: rgba(255,255,255,0.38); }
+
+    /* submit */
+    .cn-btn {
+      width: 100%;
+      font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 500;
+      letter-spacing: 0.24em; text-transform: uppercase;
+      color: #1a1108; background: var(--accent);
+      border: 1px solid var(--accent); border-radius: 2px;
+      padding: 13px; cursor: pointer;
+      transition: all 0.22s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .cn-btn:hover, .cn-btn:focus { background: #d4a57a; border-color: #d4a57a; }
+    .cn-btn:active { transform: scale(0.98); }
+    .cn-btn svg { width: 14px; height: 14px; stroke: #1a1108; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── footer ── */
+    .cn-footer {
+      padding: 0.9rem 2rem 1.3rem;
+      border-top: 1px solid var(--b1);
+      display: flex; align-items: center; justify-content: center;
+      gap: 1rem; flex-wrap: wrap;
+    }
+    .cn-fl {
+      font-size: 10px; letter-spacing: 0.1em; color: rgba(255,255,255,0.2);
+      text-decoration: none; transition: color 0.15s;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Jost', sans-serif;
+      -webkit-tap-highlight-color: transparent; white-space: nowrap;
+    }
+    .cn-fl:hover, .cn-fl:focus { color: rgba(255,255,255,0.45); }
+    .cn-dot { width: 3px; height: 3px; border-radius: 50%; background: rgba(255,255,255,0.15); flex-shrink: 0; }
+
+    
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+
+    /* tiny phones ≤ 360px */
+    @media (max-width: 360px) {
+      body { padding: 0.75rem; }
+      .cn-header { padding: 1rem 1rem 0.9rem; }
+      .cn-body   { padding: 1rem; }
+      .cn-footer { padding: 0.75rem 1rem 1rem; gap: 0.5rem; flex-direction: column; }
+      .cn-brand  { font-size: 16px; }
+      .cn-title  { font-size: 19px; }
+      .cn-sub    { font-size: 7px; }
+      .cn-dot    { display: none; }
+      .cn-notice-txt { font-size: 9px; }
+    }
+
+    /* phones 361–480px — minor tightening */
+    @media (min-width: 361px) and (max-width: 480px) {
+      .cn-brand  { font-size: 18px; }
+      .cn-title  { font-size: 21px; }
+      
+    }
+
+    /* tablets & up: more breathing room */
+    @media (min-width: 600px) {
+      body { padding: 2rem; }
+      
+    }
+
+    /* landscape phones — allow scroll so card isn't clipped */
+    @media (max-height: 600px) and (orientation: landscape) {
+      body { align-items: flex-start; padding-top: 1rem; padding-bottom: 1rem; }
+    }
+
+
+
+
+    .swal2-title{
+    font-family: 'Jost', sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    letter-spacing: 0.03em;
+}
+.swal2-timer-progress-bar{
+    background: #c4956a !important;
+}
+
+.backtohome{
+  width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+   
+}
+.back{
+  width: 100%;
+  background-color:#1a1108;
+  color:white;
+  
+}
+
+.homeback{
+  text-decoration:none;
+  width: 83%;
+}
+  
+</style>
+</head>
+<body>
+
+  <div class="cn-card">
+  <div class="cn-topbar"></div>
+
+  <div class="cn-header">
+    <div class="cn-shield">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+    </div>
+
+    <div class="cn-brand">NovAVisualS</div>
+    <div class="cn-sub">Photo and Videography Studio</div>
+
+    <div class="cn-eyebrow">
+      <div class="cn-eline"></div>
+      <span class="cn-etxt">Admin access</span>
+      <div class="cn-eline"></div>
+    </div>
+
+    <div class="cn-title">Control panel</div>
+  </div>
+
+  <div class="cn-body">
+
+    <div class="cn-notice">
+      <svg viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+
+      <span class="cn-notice-txt">
+        Restricted area — authorised personnel only
+      </span>
+    </div>
+
+    <form method="post" id="admin_loggin" novalidate>
+      {% csrf_token %}
+
+      <div class="cn-mb">
+        <label class="cn-label" for="cn-user">Admin username</label>
+
+        <input type="text"
+               id="cn-user"
+               name="username"
+               class="cn-input"
+               placeholder="Enter admin username"
+               autocomplete="username">
+      </div>
+
+      <div class="cn-mb">
+        <label class="cn-label" for="cn-pass">Password</label>
+
+        <div class="cn-pw">
+          <input type="password"
+                 name="password"
+                 id="cn-pass"
+                 class="cn-input"
+                 placeholder="Enter your password"
+                 autocomplete="current-password">
+
+          <button type="button"
+                  class="cn-eye"
+                  onclick="cnTogglePw()"
+                  title="Show/hide password">
+
+            <svg id="cn-eye-icon" viewBox="0 0 24 24">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="cn-mb">
+        <label class="cn-label" for="cn-2fa">Two-factor code</label>
+
+        <input type="text"
+               name="passkey"
+               id="cn-2fa"
+               class="cn-input"
+               placeholder="6-digit authenticator code"
+               maxlength="6"
+               inputmode="numeric">
+      </div>
+
+      <button class="cn-btn" type="submit">
+        Access control panel
+
+        <svg viewBox="0 0 24 24">
+          <line x1="5" y1="12" x2="19" y2="12"/>
+          <polyline points="12 5 19 12 12 19"/>
+        </svg>
+      </button>
+    </form>
+
+    
+
+    <!-- PERFECT CENTER BACK BUTTON -->
+
+
+  </div>
+
+  <div class="backtohome">
+   <a href="{% url 'home' %}" class='homeback'> <button class="cn-btn back" >
+         
+        Back to home
+
+    
+      </button></a>
+  </div>
+
+  <div class="cn-footer">
+    <button class="cn-fl">Forgot credentials</button>
+    <div class="cn-dot"></div>
+
+    <button class="cn-fl">Back to site</button>
+    <div class="cn-dot"></div>
+
+    <button class="cn-fl">Contact IT</button>
+  </div>
+</div>
+  <script>
+    const admin_loggin = document.getElementById("admin_loggin");
+
+    admin_loggin.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(admin_loggin);
+
+      try {
+        const response = await fetch("{% url 'admin_loggin' %}", {
+          method: "POST",
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+         Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: data.message,
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        background: '#1a1108',
+        color: '#faf8f5'
+    });
+          setTimeout(() => { window.location.href = data.redirect; }, 1200);
+
+        } else {
+         Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'error',
+                title: data.message,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                background: '#1a1108',
+                color: '#faf8f5'
+                
+                
+
+    
+            });
+        }
+
+      } catch (error) {
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          icon: 'error',
+          title: 'Something went wrong',
+          showConfirmButton: false,
+          timer: 3000,
+          
+        });
+        console.error(error);
+      }
+    });
+
+    function cnTogglePw() {
+      const inp = document.getElementById('cn-pass');
+      const ico = document.getElementById('cn-eye-icon');
+      if (inp.type === 'password') {
+        inp.type = 'text';
+        ico.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+      } else {
+        inp.type = 'password';
+        ico.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}NovAVisualS - Packages{% endblock title %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/packages.css' %}"> {% endblock css %}
+
+{% block body %}
+
+
+<!-- HEADER -->
+<div class="page-header">
+  <div class="ph-inner">
+    <div class="ph-left">
+      <div class="eyebrow"><div class="ey-line"></div><span class="ey-txt">Transparent Pricing</span></div>
+      <h1 class="ph-title">Packages built for<br><em>every moment.</em></h1>
+      <p class="ph-desc">Honest, India-realistic pricing with no hidden charges. Choose your package and we'll take care of the rest.</p>
+    </div>
+    <div class="ph-trust">
+      <div class="trust-item"><div class="trust-num">340+</div><div class="trust-label">Happy clients</div></div>
+      <div class="trust-item"><div class="trust-num">8 yrs</div><div class="trust-label">Experience</div></div>
+      <div class="trust-item"><div class="trust-num">98%</div><div class="trust-label">5-star reviews</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- CATEGORY TABS -->
+<div class="cat-tabs-wrap">
+  <div class="cat-tabs">
+    <button class="cat-tab active" data-cat="wedding">💍 Wedding</button>
+    <button class="cat-tab" data-cat="pre">💑 Pre-Wedding</button>
+    <button class="cat-tab" data-cat="savedate">📅 Save the Date</button>
+    <button class="cat-tab" data-cat="birthday">🎂 Birthday</button>
+    <button class="cat-tab" data-cat="events">🎉 Events</button>
+  </div>
+</div>
+
+<!-- PRICING SECTIONS -->
+<div class="pricing-section" id="pricing">
+
+  <!-- WEDDING -->
+  <div class="cat-section active" id="cat-wedding">
+    <div class="cat-section-header">
+      <div class="cat-label">💍 Wedding Photography</div>
+      <div class="cat-title">Wedding <em>packages</em></div>
+      <div class="cat-subtitle">Full coverage from mehndi to reception — choose what fits your day.</div>
+    </div>
+    <div class="pkgs-grid">
+      <div class="pkg" data-cat="Wedding" data-name="Basic" data-from="₹20,000" data-to="₹30,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=600&q=75" alt="Basic Wedding"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Wedding</div>
+          <div class="pkg-name">Basic</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹20,000</div>
+            <div class="pkg-price-to">up to ₹30,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>1 day photography coverage</li>
+            <li>1 professional photographer</li>
+            <li>300 edited high-res photos</li>
+            <li>Online gallery delivery</li>
+            <li>7-day turnaround</li>
+          </ul>
+          <div class="pkg-note">Ideal for intimate ceremonies & small weddings</div>
+          <button class="btn-book" onclick="openModal(this)">Book Basic — from ₹20,000</button>
+        </div>
+      </div>
+
+      <div class="pkg featured" data-cat="Wedding" data-name="Standard" data-from="₹40,000" data-to="₹60,000">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=75" alt="Standard Wedding"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Wedding</div>
+          <div class="pkg-name">Standard</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹40,000</div>
+            <div class="pkg-price-to">up to ₹60,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>Photo + Cinematic video</li>
+            <li>2 photographers + 1 videographer</li>
+            <li>500 edited photos + highlight reel</li>
+            <li>2 day coverage (pre + wedding)</li>
+            <li>Online gallery + USB delivery</li>
+            <li>14-day turnaround</li>
+          </ul>
+          <div class="pkg-note">Our best-seller — perfect for full wedding days</div>
+          <button class="btn-book" onclick="openModal(this)">Book Standard — from ₹40,000</button>
+        </div>
+      </div>
+
+      <div class="pkg" data-cat="Wedding" data-name="Premium" data-from="₹80,000" data-to="₹1,50,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=75" alt="Premium Wedding"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Wedding</div>
+          <div class="pkg-name">Premium</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹80,000</div>
+            <div class="pkg-price-to">up to ₹1,50,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>Full 3-day coverage (mehndi to reception)</li>
+            <li>3 photographers + videographer + drone</li>
+            <li>Unlimited edited photos + full film</li>
+            <li>Premium leather-bound album</li>
+            <li>Drone aerial coverage</li>
+            <li>Same-day teaser reel</li>
+          </ul>
+          <div class="pkg-note">Complete luxury — for grand celebrations</div>
+          <button class="btn-book" >Book Premium — from ₹80,000</button>
+        </div>
+      </div>
+
+   
+    </div>
+  </div>
+
+  <!-- PRE-WEDDING -->
+  <div class="cat-section" id="cat-pre">
+    <div class="cat-section-header">
+      <div class="cat-label">💑 Pre-Wedding Photography</div>
+      <div class="cat-title">Pre-wedding <em>packages</em></div>
+      <div class="cat-subtitle">Natural light, real emotion — tell your love story before the big day.</div>
+    </div>
+    <div class="pkgs-grid">
+      <div class="pkg" data-cat="Pre-Wedding" data-name="Basic Shoot" data-from="₹10,000" data-to="₹20,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="{% static 'images/pre4.jpg' %}" alt="Basic Pre-Wedding"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Pre-Wedding</div>
+          <div class="pkg-name">Basic Shoot</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹10,000</div>
+            <div class="pkg-price-to">up to ₹20,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>2–3 hour outdoor shoot</li>
+            <li>1 location of your choice</li>
+            <li>80 edited high-res photos</li>
+            <li>Online gallery delivery</li>
+          </ul>
+          <div class="pkg-note">Perfect for a quick, beautiful couple session</div>
+          <button class="btn-book" onclick="openModal(this)">Book Basic — from ₹10,000</button>
+        </div>
+      </div>
+
+      <div class="pkg featured" data-cat="Pre-Wedding" data-name="Cinematic" data-from="₹25,000" data-to="₹40,000">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-img-wrap"><img class="pkg-img" src="{% static 'images/pre5.jpg' %}" alt="Cinematic Pre-Wedding"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Pre-Wedding</div>
+          <div class="pkg-name">Cinematic</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹25,000</div>
+            <div class="pkg-price-to">up to ₹40,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>Full day shoot (6–8 hours)</li>
+            <li>2 locations + outfit changes</li>
+            <li>200 edited photos</li>
+            <li>Cinematic highlight video (3–5 min)</li>
+            <li>Mini printed album</li>
+          </ul>
+          <div class="pkg-note">Our most loved pre-wedding experience</div>
+          <button class="btn-book" onclick="openModal(this)">Book Cinematic — from ₹25,000</button>
+        </div>
+      </div>
+
+      <div class="pkg" data-cat="Pre-Wedding" data-name="Destination" data-from="₹50,000" data-to="₹90,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=600&q=75" alt="Destination Pre-Wedding"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Pre-Wedding</div>
+          <div class="pkg-name">Destination</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹50,000</div>
+            <div class="pkg-price-to">up to ₹90,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>2-day destination shoot (Goa, Kerala, Coorg, etc.)</li>
+            <li>3+ locations, multiple looks</li>
+            <li>Unlimited edited photos</li>
+            <li>Full cinematic film</li>
+            <li>Premium album + prints</li>
+          </ul>
+          <div class="pkg-note">Travel charges billed separately</div>
+          <button class="btn-book" onclick="openModal(this)">Book Destination — from ₹50,000</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAVE THE DATE -->
+  <div class="cat-section" id="cat-savedate">
+    <div class="cat-section-header">
+      <div class="cat-label">📅 Save the Date</div>
+      <div class="cat-title">Save the date <em>packages</em></div>
+      <div class="cat-subtitle">Announce your engagement with a shoot worth sharing.</div>
+    </div>
+    <div class="pkgs-grid">
+      <div class="pkg" data-cat="Save the Date" data-name="Announcement" data-from="₹6,000" data-to="₹10,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=75" alt="Announcement"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Save the Date</div>
+          <div class="pkg-name">Announcement</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹6,000</div>
+            <div class="pkg-price-to">up to ₹10,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>1.5 hour shoot</li>
+            <li>50 edited photos</li>
+            <li>Digital delivery</li>
+            <li>Social media ready exports</li>
+          </ul>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹6,000</button>
+        </div>
+      </div>
+
+      <div class="pkg featured" data-cat="Save the Date" data-name="Story" data-from="₹12,000" data-to="₹20,000">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=600&q=75" alt="Story"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Save the Date</div>
+          <div class="pkg-name">Story</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹12,000</div>
+            <div class="pkg-price-to">up to ₹20,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>3 hour styled shoot</li>
+            <li>120 edited photos</li>
+            <li>2 outfit changes</li>
+            <li>Short teaser reel (Instagram ready)</li>
+          </ul>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹12,000</button>
+        </div>
+      </div>
+
+      <div class="pkg" data-cat="Save the Date" data-name="Cinematic" data-from="₹22,000" data-to="₹35,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=600&q=75" alt="Cinematic STD"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Save the Date</div>
+          <div class="pkg-name">Cinematic</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹22,000</div>
+            <div class="pkg-price-to">up to ₹35,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>Full day shoot</li>
+            <li>Unlimited edited photos</li>
+            <li>Cinematic film (3–4 min)</li>
+            <li>Styled setup included</li>
+          </ul>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹22,000</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BIRTHDAY -->
+  <div class="cat-section" id="cat-birthday">
+    <div class="cat-section-header">
+      <div class="cat-label">🎂 Birthday Photography</div>
+      <div class="cat-title">Birthday <em>packages</em></div>
+      <div class="cat-subtitle">From first birthdays to milestone celebrations — every moment deserves a frame.</div>
+    </div>
+    <div class="pkgs-grid">
+      <div class="pkg" data-cat="Birthday" data-name="Celebration" data-from="₹5,000" data-to="₹10,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=600&q=75" alt="Celebration"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Birthday</div>
+          <div class="pkg-name">Celebration</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹5,000</div>
+            <div class="pkg-price-to">up to ₹10,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>2 hour coverage</li>
+            <li>100 edited photos</li>
+            <li>Online gallery</li>
+          </ul>
+          <div class="pkg-note">Ideal for home or small venue parties</div>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹5,000</button>
+        </div>
+      </div>
+
+      <div class="pkg featured" data-cat="Birthday" data-name="Party" data-from="₹12,000" data-to="₹20,000">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=600&q=75" alt="Party"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Birthday</div>
+          <div class="pkg-name">Party</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹12,000</div>
+            <div class="pkg-price-to">up to ₹20,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>4 hour full event coverage</li>
+            <li>250 edited photos</li>
+            <li>Short highlights video</li>
+            <li>Mini printed album</li>
+          </ul>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹12,000</button>
+        </div>
+      </div>
+
+      <div class="pkg" data-cat="Birthday" data-name="Grand" data-from="₹22,000" data-to="₹35,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="{% static 'images/Birthday4.jpg' %}" alt="Grand"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Birthday</div>
+          <div class="pkg-name">Grand</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹22,000</div>
+            <div class="pkg-price-to">up to ₹35,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>6 hour coverage</li>
+            <li>Unlimited edited photos</li>
+            <li>Cinematic birthday reel</li>
+            <li>Premium prints + album</li>
+            <li>2 photographers</li>
+          </ul>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹22,000</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- EVENTS -->
+  <div class="cat-section" id="cat-events">
+    <div class="cat-section-header">
+      <div class="cat-label">🎉 Event Photography</div>
+      <div class="cat-title">Events <em>packages</em></div>
+      <div class="cat-subtitle">Corporate functions, sangeet nights, baby showers, product launches — we cover it all.</div>
+    </div>
+    <div class="pkgs-grid">
+      <div class="pkg" data-cat="Events" data-name="Small Event" data-from="₹5,000" data-to="₹15,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=600&q=75" alt="Small Event"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Events</div>
+          <div class="pkg-name">Small Event</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹5,000</div>
+            <div class="pkg-price-to">up to ₹15,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>3 hour coverage</li>
+            <li>150 edited photos</li>
+            <li>Online gallery delivery</li>
+            <li>1 photographer</li>
+          </ul>
+          <div class="pkg-note">Baby showers, kitty parties, small functions</div>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹5,000</button>
+        </div>
+      </div>
+
+      <div class="pkg featured" data-cat="Events" data-name="Full Coverage" data-from="₹20,000" data-to="₹40,000">
+        <div class="pkg-badge">Most Popular</div>
+        <div class="pkg-img-wrap"><img class="pkg-img" src="{% static 'images/event.avif' %}" alt="Full Coverage"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Events</div>
+          <div class="pkg-name">Full Coverage</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹20,000</div>
+            <div class="pkg-price-to">up to ₹40,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>Full day event coverage</li>
+            <li>400 edited photos</li>
+            <li>Highlight reel video</li>
+            <li>2 photographers</li>
+            <li>Same-day social media edits</li>
+          </ul>
+          <div class="pkg-note">Corporate events, sangeet, receptions</div>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹20,000</button>
+        </div>
+      </div>
+
+      <div class="pkg" data-cat="Events" data-name="Premium Event" data-from="₹40,000" data-to="₹80,000">
+        <div class="pkg-img-wrap"><img class="pkg-img" src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=600&q=75" alt="Premium Event"></div>
+        <div class="pkg-body">
+          <div class="pkg-tier">Events</div>
+          <div class="pkg-name">Premium Event</div>
+          <div class="pkg-price-wrap">
+            <div class="pkg-price-from">Starting from</div>
+            <div class="pkg-price">₹40,000</div>
+            <div class="pkg-price-to">up to ₹80,000</div>
+          </div>
+          <div class="pkg-includes-label">Includes</div>
+          <ul class="pkg-features">
+            <li>Full day + overtime coverage</li>
+            <li>Unlimited edited photos</li>
+            <li>Full cinematic event film</li>
+            <li>3 photographers + videographer</li>
+            <li>Live teaser delivered same day</li>
+            <li>Drone coverage (if permitted)</li>
+          </ul>
+          <button class="btn-book" onclick="openModal(this)">Book Now — from ₹40,000</button>
+        </div>
+      </div>
+
+     
+    </div>
+  </div>
+
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeOuter(event)">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <div class="eyebrow" style="margin-bottom:0.4rem"><div class="ey-line"></div><span class="ey-txt">Reservation</span></div>
+        <div class="modal-title">Book your session</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="sel-strip" id="selStrip">
+        <div class="sel-left">
+          <div class="sel-cat" id="selCat"></div>
+          <div class="sel-name" id="selName"></div>
+        </div>
+        <div class="sel-price" id="selPrice"></div>
+      </div>
+
+      <form id="bookingForm" onsubmit="submitForm(event)">
+        <div class="form-row">
+          <div class="fg"><label>Full Name</label><input class="fc" type="text" placeholder="Prabin Kumar" required></div>
+          <div class="fg"><label>Phone Number</label><input class="fc" type="tel" placeholder="+91 98765 43210" required></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Email Address</label><input class="fc" type="email" placeholder="you@email.com" required></div>
+          <div class="fg"><label>Event Date</label><input class="fc" type="date" required></div>
+        </div>
+        <div class="form-row">
+          <div class="fg">
+            <label>Category</label>
+            <select class="fc" id="fCat" onchange="updatePkgSelect()">
+              <option value="Wedding">💍 Wedding</option>
+              <option value="Pre-Wedding">💑 Pre-Wedding</option>
+              <option value="Save the Date">📅 Save the Date</option>
+              <option value="Birthday">🎂 Birthday</option>
+              <option value="Events">🎉 Events</option>
+            </select>
+          </div>
+          <div class="fg">
+            <label>Package</label>
+            <select class="fc" id="fPkg"></select>
+          </div>
+        </div>
+        <div class="fg" style="margin-bottom:0.9rem"><label>Venue / Location</label><input class="fc" type="text" placeholder="Bangalore, Karnataka"></div>
+        <div class="fg"><label>Message (optional)</label><textarea class="fc" placeholder="Tell us about your vision, theme, or any special requests…"></textarea></div>
+        <div class="fdivider"></div>
+        <button type="submit" class="btn-submit">Confirm Booking →</button>
+      </form>
+
+      <div class="success-state" id="successState">
+        <div class="s-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="s-title">Booking confirmed!</div>
+        <div class="s-desc">Thank you! We'll reach out within 24 hours to finalise your session details.</div>
+        <button class="s-btn" onclick="closeModal()">Back to packages</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-mini">
+  <span class="copy">&copy; 2026 CaptureNest. All rights reserved. · Kerala, India</span>
+  <div class="legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="/contact/">Contact</a></div>
+</div>
+
+<script>
+const pkgData = {
+  'Wedding':       ['Basic','Standard','Premium'],
+  'Pre-Wedding':   ['Basic Shoot','Cinematic','Destination'],
+  'Save the Date': ['Announcement','Story','Cinematic'],
+  'Birthday':      ['Celebration','Party','Grand'],
+  'Events':        ['Small Event','Full Coverage','Premium Event'],
+};
+
+// Cat tabs
+document.querySelectorAll('.cat-tab').forEach(tab=>{
+  tab.addEventListener('click',function(){
+    document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+    this.classList.add('active');
+    document.querySelectorAll('.cat-section').forEach(s=>s.classList.remove('active'));
+    document.getElementById('cat-'+this.dataset.cat).classList.add('active');
+  });
+});
+
+function updatePkgSelect(selectedPkg){
+  const cat=document.getElementById('fCat').value;
+  const sel=document.getElementById('fPkg');
+  sel.innerHTML='';
+  (pkgData[cat]||[]).forEach(p=>{
+    const o=document.createElement('option');
+    o.value=p;o.textContent=p;
+    if(p===selectedPkg) o.selected=true;
+    sel.appendChild(o);
+  });
+}
+
+function openModal(btn, mode){
+  if(mode==='custom'){
+    document.getElementById('selCat').textContent='CUSTOM';
+    document.getElementById('selName').textContent='Custom Package Request';
+    document.getElementById('selPrice').textContent='Get a quote';
+  } else {
+    const cat=btn.dataset.cat;
+    const name=btn.dataset.name;
+    const from=btn.dataset.from;
+    const to=btn.dataset.to;
+    document.getElementById('selCat').textContent=cat.toUpperCase();
+    document.getElementById('selName').textContent=name+' Package';
+    document.getElementById('selPrice').textContent=from+' – '+to;
+    document.getElementById('fCat').value=cat;
+    updatePkgSelect(name);
+  }
+  document.getElementById('bookingForm').style.display='block';
+  document.getElementById('successState').style.display='none';
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeOuter(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+
+function submitForm(e){
+  e.preventDefault();
+  document.getElementById('bookingForm').style.display='none';
+  document.getElementById('successState').style.display='flex';
+}
+
+updatePkgSelect();
+</script>
+
+{% endblock body %}

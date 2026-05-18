@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}NovAVisualS - Home{% endblock title %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/home.css' %}"> {% endblock css %}
+
+{% block body %}
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grad"></div>
+  <div class="hero-grad-bottom"></div>
+
+  
+
+  <!-- split body -->
+  <div class="hero-body">
+
+    <div class="hero-left">
+      <div class="eyebrow">
+        <div class="ey-line"></div>
+        <span class="ey-text">Kerala · Est. 2018</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="line"><span>Capture your</span></span>
+        <span class="line"><span>most precious</span></span>
+        <span class="line"><span><em>moments.</em></span></span>
+      </h1>
+
+      <div class="hero-divider"></div>
+
+      <p class="hero-desc">From intimate weddings to grand events — we craft photographs and cinematic films that tell your story as it deserves to be told.</p>
+
+      <div class="hero-ctas">
+        <a href="/booking/" class="btn-fill">Book a session</a>
+        <a href="{% url 'gallery' %}" class="btn-ghost">View gallery</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="mosaic-cell">
+        <img src="{% static 'images/weddingHero.jpg' %}" alt="Wedding photography">
+        <span class="mosaic-label">Wedding</span>
+      </div>
+      <div class="mosaic-cell">
+        <img src="{% static 'images/Birthday.jpg' %}" alt="Portrait photography">
+        <span class="mosaic-label">Birtday</span>
+      </div>
+      <div class="mosaic-cell">
+        <img src="{% static 'images/event.avif' %}" alt="Event photography">
+        <span class="mosaic-label">Events</span>
+      </div>
+
+      <div class="avail-card">
+        <div class="avail-top">
+          <div class="avail-dot"></div>
+          <span class="avail-status">book now</span>
+        </div>
+        {% comment %} <div class="avail-date">June 14</div> {% endcomment %}
+        <div class="avail-sub">Booking for 2026</div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- stats -->
+  <div class="hero-stats">
+    <div class="stat"><span class="stat-n">340+</span><span class="stat-l">Sessions</span></div>
+    <div class="stat"><span class="stat-n">8 yrs</span><span class="stat-l">Experience</span></div>
+    <div class="stat"><span class="stat-n">12</span><span class="stat-l">Awards</span></div>
+    <div class="stat"><span class="stat-n">98%</span><span class="stat-l">5-star reviews</span></div>
+  </div>
+
+
+
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll to explore</span>
+  </div>
+</div>
+
+  {% include "category.html" %}
+  {% include "whychooseUS.html" %}
+
+{% endblock body %}

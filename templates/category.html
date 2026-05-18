@@ -1,0 +1,545 @@
+{% load static %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --cream:#faf8f5;--warm:#f2ede6;--sand:#e8e0d4;
+    --stone:#b8a898;--text:#3a3530;--soft:#7a6e65;
+    --accent:#c4956a;--accent-light:#f0e4d4;
+  }
+  body{font-family:'Jost',sans-serif;background:#1e1610;overflow-x:hidden}
+
+  /* ─── CATEGORIES SECTION ─── */
+  .categories{
+    position:relative;
+    padding:7rem 2.5rem 6rem;
+    overflow:hidden;
+  }
+
+  /* subtle grain texture overlay */
+  .categories::before{
+    content:'';position:absolute;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity:0.35;pointer-events:none;
+  }
+
+  /* faint horizontal rule separating from hero */
+  .categories::after{
+    content:'';display:none;
+  }
+
+  .cat-header{
+    display:flex;align-items:flex-end;justify-content:space-between;
+    margin-bottom:3.5rem;
+    position:relative;z-index:2;
+  }
+
+  .cat-header-left{}
+  .cat-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:1rem}
+  .cat-ey-line{width:24px;height:1px;background:var(--accent)}
+  .cat-ey-text{font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--accent);font-family:'Jost',sans-serif;font-weight:300}
+
+  .cat-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(34px,4vw,54px);font-weight:300;
+    color:var(--cream);line-height:1.1;letter-spacing:0.01em;
+  }
+  .cat-title em{font-style:italic;color:var(--accent)}
+
+  .cat-header-right{
+    font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    color:rgba(250,248,245,0.35);font-weight:300;
+    max-width:260px;text-align:right;line-height:1.8;
+    padding-bottom:4px;
+  }
+
+  /* ─── CARD GRID ─── */
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:10px;
+    position:relative;z-index:2;
+  }
+
+  .cat-card{
+    position:relative;
+    border-radius:3px;overflow:hidden;
+    cursor:pointer;
+    aspect-ratio:3/4;
+    background:#2a211a;
+    border:1px solid rgba(255,255,255,0.06);
+    transition:transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94),
+               border-color 0.3s;
+  }
+  .cat-card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(196,149,106,0.35);
+  }
+
+  /* background image */
+  .cat-card-bg{
+    position:absolute;inset:0;
+    background-size:cover;background-position:center;
+    transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94),opacity 0.4s;
+    opacity:0.7;
+  }
+  .cat-card:hover .cat-card-bg{transform:scale(1.07);opacity:0.85}
+
+  /* gradient overlay */
+  .cat-card-grad{
+    position:absolute;inset:0;
+    background:linear-gradient(
+      to top,
+      rgba(14,9,5,0.95) 0%,
+      rgba(14,9,5,0.45) 45%,
+      rgba(14,9,5,0.1) 100%
+    );
+    transition:background 0.4s;
+  }
+  .cat-card:hover .cat-card-grad{
+    background:linear-gradient(
+      to top,
+      rgba(14,9,5,0.98) 0%,
+      rgba(14,9,5,0.5) 40%,
+      rgba(14,9,5,0.15) 100%
+    );
+  }
+
+  /* top badge */
+  .cat-badge{
+    position:absolute;top:14px;left:14px;
+    font-size:8px;letter-spacing:0.28em;text-transform:uppercase;
+    color:var(--accent);
+    background:rgba(196,149,106,0.12);
+    border:1px solid rgba(196,149,106,0.3);
+    padding:4px 9px;border-radius:2px;
+    font-family:'Jost',sans-serif;font-weight:400;
+    opacity:0;transform:translateY(-6px);
+    transition:opacity 0.35s 0.05s, transform 0.35s 0.05s;
+  }
+  .cat-card:hover .cat-badge{opacity:1;transform:translateY(0)}
+
+  /* bottom content */
+  .cat-card-body{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:1.4rem 1.2rem 1.3rem;
+  }
+
+  .cat-number{
+    font-family:'Cormorant Garamond',serif;
+    font-size:11px;font-weight:300;letter-spacing:0.2em;
+    color:rgba(250,248,245,0.25);
+    display:block;margin-bottom:6px;
+    transition:color 0.3s;
+  }
+  .cat-card:hover .cat-number{color:rgba(196,149,106,0.5)}
+
+  .cat-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:22px;font-weight:300;
+    color:var(--cream);line-height:1.1;
+    letter-spacing:0.02em;
+    display:block;margin-bottom:6px;
+  }
+  .cat-name em{font-style:italic}
+
+  .cat-sub{
+    font-size:9px;letter-spacing:0.18em;text-transform:uppercase;
+    color:rgba(250,248,245,0.32);font-weight:300;
+    display:block;margin-bottom:14px;
+    transition:color 0.3s;
+  }
+  .cat-card:hover .cat-sub{color:rgba(250,248,245,0.5)}
+
+  /* explore link */
+  .cat-link{
+    display:inline-flex;align-items:center;gap:7px;
+    font-size:9px;letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--accent);text-decoration:none;font-weight:400;
+    opacity:0;transform:translateY(6px);
+    transition:opacity 0.35s 0.08s, transform 0.35s 0.08s, gap 0.25s;
+  }
+  .cat-card:hover .cat-link{opacity:1;transform:translateY(0)}
+  .cat-link:hover{gap:11px}
+  .cat-link-arrow{
+    width:20px;height:1px;background:var(--accent);
+    position:relative;flex-shrink:0;
+    transition:width 0.25s;
+  }
+  .cat-link:hover .cat-link-arrow{width:26px}
+  .cat-link-arrow::after{
+    content:'';position:absolute;right:-1px;top:-2px;
+    border:4px solid transparent;
+    border-left:5px solid var(--accent);
+    border-right:none;
+  }
+
+  /* thin bottom accent line that grows on hover */
+  .cat-card-accent{
+    position:absolute;bottom:0;left:0;
+    height:2px;width:0;background:var(--accent);
+    transition:width 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+  .cat-card:hover .cat-card-accent{width:100%}
+
+  /* ─── BOTTOM ROW ─── */
+  .cat-footer{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-top:3rem;
+    padding-top:2rem;
+    border-top:1px solid rgba(255,255,255,0.07);
+    position:relative;z-index:2;
+  }
+  .cat-footer-note{
+    font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+    color:rgba(255,255,255,0.22);font-weight:300;
+  }
+  .cat-footer-note span{color:var(--accent);font-style:italic;font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:0.05em;text-transform:none}
+  .cat-all{
+    font-size:10px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;
+    color:rgba(250,248,245,0.55);
+    border:1px solid rgba(250,248,245,0.14);border-radius:2px;
+    padding:10px 22px;text-decoration:none;
+    transition:all 0.22s;
+  }
+  .cat-all:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* scroll-triggered entrance */
+  .cat-card{
+    opacity:0;transform:translateY(24px);
+    animation:catReveal 0.7s both;
+  }
+  .cat-card:nth-child(1){animation-delay:0.1s}
+  .cat-card:nth-child(2){animation-delay:0.2s}
+  .cat-card:nth-child(3){animation-delay:0.3s}
+  .cat-card:nth-child(4){animation-delay:0.4s}
+  .cat-card:nth-child(5){animation-delay:0.5s}
+  @keyframes catReveal{
+    from{opacity:0;transform:translateY(24px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  .cat-header{opacity:0;animation:fadeup 0.7s 0.05s both}
+  .cat-footer{opacity:0;animation:fadeup 0.7s 0.65s both}
+  @keyframes fadeup{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+
+  {% comment %} responsive  {% endcomment %}
+
+  /* ── TABLET: 3 columns ── */
+@media (max-width: 900px) {
+  .categories {
+    padding: 5rem 2rem 4.5rem;
+  }
+  .cat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .cat-header-right {
+    display: none;
+  }
+}
+
+/* ── MOBILE L: 2 columns ── */
+@media (max-width: 600px) {
+  .categories {
+    padding: 4rem 1.25rem 3.5rem;
+  }
+  .cat-header {
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .cat-title {
+    font-size: clamp(28px, 7vw, 40px);
+  }
+  .cat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .cat-card {
+    aspect-ratio: 2 / 3;
+  }
+  .cat-name {
+    font-size: 18px;
+  }
+  .cat-card-body {
+    padding: 1rem 1rem 1.1rem;
+  }
+  .cat-footer {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+}
+
+/* ── MOBILE S: still 2 col, tighter ── */
+@media (max-width: 380px) {
+  .categories {
+    padding: 3rem 1rem 3rem;
+  }
+  .cat-grid {
+    gap: 6px;
+  }
+  .cat-name {
+    font-size: 16px;
+  }
+  .cat-card-body {
+    padding: 0.85rem 0.8rem 0.9rem;
+  }
+  .cat-all {
+    padding: 9px 16px;
+  }
+}
+
+.cat-card-link{
+  display:block;
+  text-decoration:none;
+  color:inherit;
+}
+
+.explore{
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  opacity:0;
+  transform:translateY(10px);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+    color:rgb(196, 150, 106);;
+}
+
+.cat-card-link:hover .explore{
+  opacity:1;
+  transform:translateY(0);
+}
+</style>
+
+<section class="categories">
+
+  <div class="cat-header">
+    <div class="cat-header-left">
+      <div class="cat-eyebrow">
+        <div class="cat-ey-line"></div>
+        <span class="cat-ey-text">What we shoot</span>
+      </div>
+      <h2 class="cat-title">Our <em>specialties</em></h2>
+    </div>
+    <p class="cat-header-right">Each session is crafted with intention — tell us your story and we'll find the perfect frame.</p>
+  </div>
+
+  <div class="cat-grid">
+
+    <!-- Wedding -->
+    <a href="{% url 'gallery' %}?category=wedding" class="cat-card-link">
+
+  <div class="cat-card">
+
+    <div class="cat-card-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=600&q=80')">
+    </div>
+
+    <div class="cat-card-grad"></div>
+
+    {% comment %} <span class="cat-badge">Most booked</span> {% endcomment %}
+
+    <div class="cat-card-body">
+      <span class="cat-number">01</span>
+      <span class="cat-name">Wedding</span>
+      <span class="cat-sub">Full-day coverage</span>
+
+       <span class='explore'>Explore  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+</svg></span>
+    </div>
+
+    <div class="cat-card-accent"></div>
+
+  </div>
+
+</a>
+<!-- Pre-Wedding -->
+<a href="{% url 'gallery' %}?category=pre-wedding" class="cat-card-link">
+
+  <div class="cat-card">
+
+    <div class="cat-card-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80')">
+    </div>
+
+    <div class="cat-card-grad"></div>
+
+    {% comment %} <span class="cat-badge">Popular</span> {% endcomment %}
+
+    <div class="cat-card-body">
+
+      <span class="cat-number">02</span>
+
+      <span class="cat-name"><em>Pre-</em>Wedding</span>
+
+      <span class="cat-sub">Couples & intimate shoots</span>
+
+      <span class="explore">
+        Explore
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="16"
+             height="16"
+             fill="currentColor"
+             class="bi bi-arrow-right"
+             viewBox="0 0 16 16">
+
+          <path fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
+
+      </span>
+
+    </div>
+
+    <div class="cat-card-accent"></div>
+
+  </div>
+
+</a>
+
+    <!-- Save the Date -->
+<a href="{% url 'gallery' %}?category=save_tha_date" class="cat-card-link">
+
+  <div class="cat-card">
+
+    <div class="cat-card-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1591604466107-ec97de577aff?auto=format&fit=crop&w=600&q=80')">
+    </div>
+
+    <div class="cat-card-grad"></div>
+
+    {% comment %} <span class="cat-badge">New offering</span> {% endcomment %}
+
+    <div class="cat-card-body">
+
+      <span class="cat-number">03</span>
+
+      <span class="cat-name">Save <em>the</em> Date</span>
+
+      <span class="cat-sub">Announcement sessions</span>
+
+      <span class="explore">
+        Explore
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="16"
+             height="16"
+             fill="currentColor"
+             class="bi bi-arrow-right"
+             viewBox="0 0 16 16">
+
+          <path fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
+
+      </span>
+
+    </div>
+
+    <div class="cat-card-accent"></div>
+
+  </div>
+
+</a>
+
+
+<!-- Birthday -->
+<a href="{% url 'gallery' %}?category=birthday" class="cat-card-link">
+
+  <div class="cat-card">
+
+    <div class="cat-card-bg"
+      style="background-image: url('{% static 'images/Birthday.jpg' %}')">
+    </div>
+
+    <div class="cat-card-grad"></div>
+
+    {% comment %} <span class="cat-badge">All ages</span> {% endcomment %}
+
+    <div class="cat-card-body">
+
+      <span class="cat-number">04</span>
+
+      <span class="cat-name">Birthday</span>
+
+      <span class="cat-sub">Milestones & celebrations</span>
+
+      <span class="explore">
+        Explore
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="16"
+             height="16"
+             fill="currentColor"
+             class="bi bi-arrow-right"
+             viewBox="0 0 16 16">
+
+          <path fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
+
+      </span>
+
+    </div>
+
+    <div class="cat-card-accent"></div>
+
+  </div>
+
+</a>
+
+
+<!-- Events -->
+<a href="{% url 'gallery' %}?category=events" class="cat-card-link">
+
+  <div class="cat-card">
+
+    <div class="cat-card-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80')">
+    </div>
+
+    <div class="cat-card-grad"></div>
+
+    <span class="cat-badge">Corporate & social</span>
+
+    <div class="cat-card-body">
+
+      <span class="cat-number">05</span>
+
+      <span class="cat-name"><em>Events</em></span>
+
+      <span class="cat-sub">Gatherings & occasions</span>
+
+      <span class="explore">
+        Explore
+
+        <svg xmlns="http://www.w3.org/2000/svg"
+             width="16"
+             height="16"
+             fill="currentColor"
+             class="bi bi-arrow-right"
+             viewBox="0 0 16 16">
+
+          <path fill-rule="evenodd"
+            d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+        </svg>
+
+      </span>
+
+    </div>
+
+    <div class="cat-card-accent"></div>
+
+  </div>
+
+</a>
+
+  </div>
+
+
+
+</section>

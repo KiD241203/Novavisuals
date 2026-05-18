@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}My bookings{% endblock title %}
+{% comment %} <link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet"> {% endcomment %}
+{% block css %} <link rel="stylesheet" href="{% static 'css/myBooking.css' %}"> {% endblock css %}
+
+{% block body %}
+
+<!-- ══ HERO HEADER ══ -->
+<div class="page-hero">
+  <div class="hero-bg-text">Bookings</div>
+
+  <div class="hero-top">
+    <div class="hero-title-block">
+      <div class="hero-title">My<em>Bookings</em></div>
+    </div>
+    <div class="hero-controls">
+      <div class="h-search">
+        <svg class="h-search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search…" id="searchInput">
+      </div>
+      <div class="view-toggle">
+        <button class="vt-btn active" id="gridBtn" title="Grid view">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </button>
+        <button class="vt-btn" id="listBtn" title="List view">
+          <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+      {% comment %} <button class="h-book-btn" onclick="location.href='{% url 'booking' %}'">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <span>Book Session</span>
+      </button> {% endcomment %}
+      <div class="h-profile">
+        <div class="h-avatar">{{ user.first_name|slice:":1"|upper }}</div>
+        <span class="h-pname">{{ user.first_name|capfirst }}</span>
+      </div>
+    </div>
+  </div>
+
+  {% comment %} <div class="hero-title-row">
+    <div class="hero-title-block">
+      <div class="hero-eyebrow">Studio Portal</div>
+      <div class="hero-title">My <em>Sessions</em></div>
+    </div>
+    <div class="stats-tape">
+      <div class="stat-item">
+        <div class="stat-label">Total</div>
+        <div class="stat-val">5</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Upcoming</div>
+        <div class="stat-val">2</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-label">Spent</div>
+        <div class="stat-val">₹1.4L</div>
+      </div>
+    </div>
+  </div> {% endcomment %}
+
+  <div class="filter-strip">
+    <button class="fp active" data-filter="all">All &nbsp;<span style="opacity:0.35">5</span></button>
+    <button class="fp" data-filter="pending"><span class="fp-dot" style="background:#e8b058"></span>Pending</button>
+    <button class="fp" data-filter="confirmed"><span class="fp-dot" style="background:#6abf8a"></span>Confirmed</button>
+    <button class="fp" data-filter="sessioncompleted"><span class="fp-dot" style="background:#53eff5"></span>Session Completed</button>
+    <button class="fp" data-filter="editinginprogress"><span class="fp-dot" style="background:#a78bfa"></span>Editing in Progress</button>
+    <button class="fp" data-filter="completed"><span class="fp-dot" style="background:#c4956a"></span>Completed</button>
+    <button class="fp" data-filter="cancelled"><span class="fp-dot" style="background:#d47a7a"></span>Cancelled</button>
+  </div>
+</div>
+
+<!-- ══ CONTENT ══ -->
+<div class="page-body">
+  <div class="bookings-grid" id="bookingGrid"></div>
+  <div class="empty-state" id="emptyState">
+    <div class="es-icon">📷</div>
+    <div class="es-title">No bookings found</div>
+    <div class="es-sub">Try adjusting your filters or search term.</div>
+  </div>
+</div>
+
+<!-- DETAIL DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drawer-head">
+    <div class="dh-left">
+      <div class="dh-eyebrow" id="dhCat"></div>
+      <div class="dh-title" id="dhTitle"></div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</div>
+{% endblock body %}
+{% block js %}<script src="{% static 'js/myBooking.js' %}"></script>{% endblock js %}

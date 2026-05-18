@@ -1,0 +1,315 @@
+{% extends 'base.html' %}
+ {% load static %}
+  {% block title %}NovAVisualS - booking{% endblock title %}
+ {% block css %}
+<link rel="stylesheet" href="{% static 'css/booking.css' %}" /> {% endblock css %} 
+{% block body %}
+<div class="page">
+  <!-- ── LEFT CINEMATIC PANEL ── -->
+  <aside class="left-panel">
+    <div class="lp-photo"></div>
+    <div class="lp-noise"></div>
+    <div class="lp-grad"></div>
+    <div class="lp-content">
+      <div class="lp-brand">
+        <div class="lp-brand-name">NovAVisualS</div>
+        <div class="lp-brand-divider"></div>
+        <div class="lp-brand-sub">Photo & videography · Kerala</div>
+      </div>
+      <div class="lp-bottom">
+        <div class="lp-tagline">
+          Every frame<br />tells a <em>story</em><br />worth keeping.
+        </div>
+        <div class="lp-stats">
+          <div class="lp-stat">
+            <div class="lp-stat-n">340+</div>
+            <div class="lp-stat-l">Sessions</div>
+          </div>
+          <div class="lp-stat">
+            <div class="lp-stat-n">8 yrs</div>
+            <div class="lp-stat-l">Experience</div>
+          </div>
+          <div class="lp-stat">
+            <div class="lp-stat-n">98%</div>
+            <div class="lp-stat-l">5-star</div>
+          </div>
+        </div>
+        <div class="lp-why">
+          <div class="lp-why-item">
+            <div class="lp-why-dot"></div>
+            <div class="lp-why-text">
+              No payment required — we confirm within 24 hrs
+            </div>
+          </div>
+          <div class="lp-why-item">
+            <div class="lp-why-dot"></div>
+            <div class="lp-why-text">
+              Gallery delivered in 7–14 days, edited with care
+            </div>
+          </div>
+          <div class="lp-why-item">
+            <div class="lp-why-dot"></div>
+            <div class="lp-why-text">
+              Same dedicated team from booking through delivery
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── RIGHT FORM PANEL ── -->
+  <main class="right-panel">
+    <div class="rp-inner">
+      <div class="rp-header">
+        <div class="rp-eyebrow">
+          <div class="rp-ey-line"></div>
+          <span class="rp-ey-txt">Reserve your session</span>
+        </div>
+        <h1 class="rp-title">Book your <em>perfect moment.</em></h1>
+        <p class="rp-subtitle">
+          Fill out the form — we'll reach out within 24 hours to confirm every
+          detail of your session.
+        </p>
+      </div>
+
+      <form id="bookingForm" method="POST" action="">
+        {% csrf_token %}
+
+        <!-- STEP 1: CATEGORY -->
+        <div class="form-section">
+          <div class="section-head">
+            <div class="sec-num">1</div>
+            <div class="sec-label">What are you celebrating?</div>
+            <div class="sec-line"></div>
+          </div>
+          <div class="cat-grid">
+            <label class="cat-tile"
+              ><input
+                type="radio"
+                name="celebration"
+                value="wedding"
+                checked /><span class="cat-tile-icon">💍</span
+              ><span class="cat-tile-name">Wedding</span>
+              <div class="cat-tile-check">
+                <svg viewBox="0 0 10 8">
+                  <polyline points="1,4 3.5,6.5 9,1" />
+                </svg></div
+            ></label>
+            <label class="cat-tile"
+              ><input type="radio" name="celebration" value="prewedding" /><span
+                class="cat-tile-icon"
+                >💑</span
+              ><span class="cat-tile-name">Pre-Wedding</span>
+              <div class="cat-tile-check">
+                <svg viewBox="0 0 10 8">
+                  <polyline points="1,4 3.5,6.5 9,1" />
+                </svg></div
+            ></label>
+            <label class="cat-tile"
+              ><input type="radio" name="celebration" value="savedate" /><span
+                class="cat-tile-icon"
+                >📅</span
+              ><span class="cat-tile-name">Save the Date</span>
+              <div class="cat-tile-check">
+                <svg viewBox="0 0 10 8">
+                  <polyline points="1,4 3.5,6.5 9,1" />
+                </svg></div
+            ></label>
+            <label class="cat-tile"
+              ><input type="radio" name="celebration" value="birthday" /><span
+                class="cat-tile-icon"
+                >🎂</span
+              ><span class="cat-tile-name">Birthday</span>
+              <div class="cat-tile-check">
+                <svg viewBox="0 0 10 8">
+                  <polyline points="1,4 3.5,6.5 9,1" />
+                </svg></div
+            ></label>
+            <label class="cat-tile"
+              ><input type="radio" name="celebration" value="event" /><span
+                class="cat-tile-icon"
+                >🎉</span
+              ><span class="cat-tile-name">Events</span>
+              <div class="cat-tile-check">
+                <svg viewBox="0 0 10 8">
+                  <polyline points="1,4 3.5,6.5 9,1" />
+                </svg></div
+            ></label>
+          </div>
+        </div>
+
+        <!-- STEP 2: DETAILS + PACKAGE SPLIT SCREEN -->
+        <div class="form-section">
+          <div class="section-head">
+            <div class="sec-num">2</div>
+            <div class="sec-label">Your details & package</div>
+            <div class="sec-line"></div>
+          </div>
+
+          <div class="split-row">
+            <!-- LEFT: FORM FIELDS -->
+            <div class="fields-col">
+              <div class="field-row">
+                <div class="fg">
+                  <label class="fl">Full Name</label>
+                  <input
+                    class="fi"
+                    type="text"
+                    name="customer_name"
+                    placeholder="Prabin O"
+                    required
+                  />
+                </div>
+                <div class="fg">
+                  <label class="fl">Phone / WhatsApp</label>
+                  <input
+                    class="fi"
+                    type="tel"
+                    name="phone"
+                    placeholder="+91 98765 43210"
+                    required
+                  />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="fg">
+                  <label class="fl">Email Address</label>
+                  <input
+                    class="fi"
+                    type="email"
+                    name="email"
+                    placeholder="you@gmail.com"
+                    required
+                  />
+                </div>
+                <div class="fg">
+                  <label class="fl">Event Date</label>
+                  <input class="fi" type="date" name="event_date" required />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="fg">
+                  <label class="fl">City / Venue</label>
+                  <input
+                    class="fi"
+                    type="text"
+                    name="city"
+                    placeholder="Malappuram, Kerala"
+                  />
+                </div>
+                <div class="fg">
+                  <label class="fl">How did you find us?</label>
+                  <select class="fi" name="referral">
+                    <option>Instagram</option>
+                    <option>Google</option>
+                    <option>Friend / Family</option>
+                    <option>Wedding portal</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="fg">
+                <label class="fl">Message / Special Requests</label>
+                <textarea
+                  class="fi"
+                  name="message"
+                  placeholder="Tell us about your vision, theme, guest count, or any special requests…"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- RIGHT: PACKAGE PANEL -->
+            <div class="pkg-col">
+              <div class="pkg-col-head">
+                <span class="pkg-col-label">Select a Package</span>
+                <span class="pkg-col-cat" id="pkgColCat">Wedding</span>
+              </div>
+
+              <!-- Custom dropdown -->
+              <div class="custom-select" id="customSelect">
+                <div class="cs-trigger" id="csTrigger">
+                  <div class="cs-trigger-left">
+                    <div class="cs-selected-name" id="csSelectedName">
+                      Signature
+                    </div>
+                    <div class="cs-selected-price" id="csSelectedPrice">
+                      ₹40,000 – ₹60,000
+                    </div>
+                  </div>
+                  <svg class="cs-chevron" viewBox="0 0 24 24">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+                <div class="cs-list" id="csList"></div>
+              </div>
+
+              <!-- Preview card -->
+              <div class="pkg-preview" id="pkgPreview">
+                <div class="pp-header">
+                  <div class="pp-name" id="ppName">Signature Package</div>
+                  <div class="pp-price" id="ppPrice">₹40,000 – ₹60,000</div>
+                </div>
+                <div class="pp-divider"></div>
+                <div class="pp-pills" id="ppPills"></div>
+              </div>
+            </div>
+          </div>
+          <!-- /split-row -->
+        </div>
+
+        <div class="fdivider"></div>
+
+        <!-- SUMMARY -->
+        <div class="summary-bar">
+          <input type="hidden" name="package" id="selectedPackage" />
+          <input type="hidden" id="selectedPrice" name="value">
+          <input type="hidden" id="selectedDuration" name="duration">
+          <div class="sb-accent-line"></div>
+          <div class="sb-left">
+            <div class="sb-cat" id="sumCat">WEDDING</div>
+            <div class="sb-pkg" id="sumPkg">Signature Package</div>
+            <div class="sb-note">No payment required now</div>
+          </div>
+          <div class="sb-price" id="sumPrice">₹40,000 – ₹60,000</div>
+        </div>
+
+        <button type="submit" class="btn-book">
+          Confirm Booking
+          <svg viewBox="0 0 24 24">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </button>
+        <p class="submit-note">
+          We'll confirm within 24 hours and reach out to discuss every detail.
+        </p>
+      </form>
+    </div>
+  </main>
+</div>
+
+<!-- SUCCESS -->
+
+<div class="success-overlay" id="successOverlay">
+  <div class="s-ring">
+    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" /></svg>
+  </div>
+  <div class="s-title">Booking Received</div>
+  <div class="s-desc">
+    Thank you for choosing NovAVisualS. We'll reach out within 24 hours to
+    confirm your session details.
+  </div>
+  <div class="s-ref" id="refNum"></div>
+  <button
+    class="s-back"
+    onclick="document.getElementById('successOverlay').classList.remove('show')"
+  >
+    Back to booking
+  </button>
+</div>
+
+ {% endblock body %}
+  {% block js %}
+<script src="{% static 'js/booking.js' %}"></script>
+{% endblock js %}

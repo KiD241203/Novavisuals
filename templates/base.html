@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} {% endblock title %}</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:    #1a1108;
+      --b1:    rgba(255,255,255,0.07);
+      --b2:    rgba(255,255,255,0.13);
+      --cream: #faf8f5;
+      --stone: #b8a898;
+      --accent:#c4956a;
+      --al:    rgba(196,149,106,0.12);
+      --ab:    rgba(196,149,106,0.35);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--bg);
+      color: var(--cream);
+      min-height: 100vh;
+    }
+
+    /* ── NAV SHELL ── */
+    #capturenest-nav {
+      background: rgba(20, 11, 4, 0.97);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--b1);
+      position: sticky;
+      top: 0;
+      z-index: 1030;
+      transition: background 0.3s, border-color 0.3s;
+      padding: 0;
+    }
+    #capturenest-nav.scrolled {
+      background: rgba(10, 6, 2, 0.99);
+      border-bottom-color: var(--b2);
+    }
+
+    /* ── BRAND ── */
+    #capturenest-nav .navbar-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      color: var(--cream);
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      line-height: 1;
+      text-decoration: none;
+      transition: color 0.2s;
+      padding: 0;
+    }
+    #capturenest-nav .navbar-brand:hover { color: #e8c9a0; }
+    #capturenest-nav .brand-sub {
+      font-size: 8px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--stone);
+      font-weight: 300;
+    }
+
+    /* ── TOGGLER ── */
+    #capturenest-nav .navbar-toggler {
+      border: none;
+      background: none;
+      padding: 6px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+    #capturenest-nav .navbar-toggler:focus { box-shadow: none; }
+    #capturenest-nav .toggler-bar {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--stone);
+      border-radius: 1px;
+      transition: transform 0.3s cubic-bezier(.4,0,.2,1), opacity 0.2s, background 0.2s;
+      transform-origin: center;
+    }
+    #capturenest-nav .navbar-toggler:hover .toggler-bar,
+    #capturenest-nav .navbar-toggler[aria-expanded="true"] .toggler-bar { background: var(--cream); }
+    #capturenest-nav .navbar-toggler[aria-expanded="true"] .toggler-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    #capturenest-nav .navbar-toggler[aria-expanded="true"] .toggler-bar:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #capturenest-nav .navbar-toggler[aria-expanded="true"] .toggler-bar:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ── DESKTOP LINKS ── */
+    #capturenest-nav .nav-link {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #7a6e65 !important;
+      padding: 6px 14px;
+      position: relative;
+      transition: color 0.2s;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    #capturenest-nav .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 14px; right: 100%;
+      height: 1px;
+      background: var(--accent);
+      transition: right 0.25s ease;
+    }
+    #capturenest-nav .nav-link:hover,
+    #capturenest-nav .nav-link.active { color: var(--cream) !important; }
+    #capturenest-nav .nav-link:hover::after,
+    #capturenest-nav .nav-link.active::after { right: 14px; }
+
+    /* ── BOOK BUTTON ── */
+    #capturenest-nav .nav-book {
+      font-family: 'Jost', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent) !important;
+      background: transparent;
+      border: 1px solid var(--ab);
+      border-radius: 2px;
+      padding: 9px 20px;
+      text-decoration: none;
+      white-space: nowrap;
+      display: inline-block;
+      transition: background 0.22s, color 0.22s, border-color 0.22s, box-shadow 0.22s;
+    }
+    #capturenest-nav .nav-book::after { display: none !important; }
+    #capturenest-nav .nav-book:hover,
+    #capturenest-nav .nav-book.active {
+      background: var(--accent);
+      color: #fff !important;
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(196,149,106,0.2);
+    }
+    
+    /* ── MOBILE COLLAPSE STYLES ── */
+    @media (max-width: 991.98px) {
+      /* The collapsed dropdown panel */
+      #navbarNav {
+        background: #0d0905;
+        border-top: 1px solid var(--b2);
+        padding: 8px 0 16px;
+        margin-top:1.5rem;
+      }
+      .navbar{
+        height:3rem;
+      }
+
+      /* Each link row */
+      #capturenest-nav .navbar-nav .nav-item {
+        width: 100%;
+        border-bottom: 1px solid var(--b1);
+      }
+      #capturenest-nav .navbar-nav .nav-item:last-child {
+        border-bottom: none;
+      }
+
+      #capturenest-nav .nav-link {
+        font-size: 10.5px !important;
+        letter-spacing: 0.24em !important;
+        padding: 14px 20px !important;
+        display: block;
+        width: 100%;
+      }
+      #capturenest-nav .nav-link::after { display: none !important; }
+      #capturenest-nav .nav-link:hover  { background: var(--al); }
+      #capturenest-nav .nav-link.active {
+        border-left: 2px solid var(--accent);
+        padding-left: 18px !important;
+      }
+
+      /* Book button on mobile */
+      #capturenest-nav .nav-item.ms-2 {
+        border-bottom: none !important;
+        padding: 14px 20px;
+      }
+      #capturenest-nav .nav-book {
+        display: block !important;
+        width: 100%;
+        text-align: center;
+        padding: 12px 20px !important;
+        font-size: 10.5px !important;
+      }
+    }
+
+    /* ── DESKTOP NAV HEIGHT ── */
+    @media (min-width: 992px) {
+      #capturenest-nav .container {
+        height: 64px;
+      }
+      #capturenest-nav .navbar-nav {
+        gap: 2px;
+      }
+    }
+
+
+   .toast{
+  position:fixed;
+
+  bottom:2rem;
+  right:2rem;
+
+  background:#2a1b12;
+
+  border:1px solid rgba(196,149,106,0.3);
+
+  border-radius:6px;
+
+  padding:12px 18px;
+
+  font-size:12px;
+
+  color:#faf7f2;
+
+  font-weight:300;
+
+  display:flex;
+  align-items:center;
+  gap:8px;
+
+  transform:translateY(80px);
+
+  opacity:0;
+
+  visibility:hidden;
+
+  transition:all .3s ease;
+
+  z-index:9999;
+
+  pointer-events:none;
+
+  box-shadow:0 10px 30px rgba(0,0,0,0.25);
+}
+
+.toast.show{
+
+  transform:translateY(0);
+
+  opacity:1;
+
+  visibility:visible;
+
+}
+.modal-backdrop {
+
+  position: fixed;
+  inset: 0;
+
+  background: rgba(0,0,0,0.72);
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 2rem;
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: .3s ease;
+
+  z-index: 99999;
+
+}
+
+.modal-backdrop.show {
+
+  opacity: 1;
+  visibility: visible;
+
+}
+
+.custom-modal {
+
+  width: 100%;
+  max-width: 430px;
+
+  background: #130d08;
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+  border-radius: 18px;
+
+  overflow: hidden;
+
+  transform: translateY(20px) scale(.96);
+
+  opacity: 0;
+
+  transition: .3s ease;
+
+  box-shadow:
+  0 30px 80px rgba(0,0,0,0.45);
+
+}
+
+.modal-backdrop.show .custom-modal {
+
+  transform: translateY(0) scale(1);
+
+  opacity: 1;
+
+}
+
+.modal-top {
+
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.3rem;
+
+}
+
+.modal-icon-wrap {
+
+  width: 54px;
+  height: 54px;
+
+  border-radius: 50%;
+
+  background: rgba(220,80,80,0.12);
+
+  border: 1px solid rgba(220,80,80,0.28);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.modal-icon-wrap i {
+
+  font-size: 24px;
+
+  color: #c4956a;
+
+}
+
+.modal-title {
+
+  font-size: 2rem;
+
+  font-family: "Cormorant Garamond", serif;
+
+  color: #fff;
+
+  margin: 0;
+
+}
+
+.modal-sub {
+
+  font-size: 14px;
+
+  line-height: 1.7;
+
+  color: rgba(255,255,255,0.58);
+
+  margin-top: .4rem;
+
+}
+
+.modal-user-chip {
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px;
+
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.04);
+
+  border: 1px solid rgba(255,255,255,0.06);
+
+}
+
+.modal-avatar {
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  background: rgba(196,149,106,0.15);
+
+  border: 1px solid rgba(196,149,106,0.3);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #c4956a;
+
+  font-size: 16px;
+
+  font-weight: 600;
+
+  flex-shrink: 0;
+
+}
+
+.modal-user-info {
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.modal-user-name {
+
+  font-size: 14px;
+
+  color: rgba(255,255,255,0.85);
+
+}
+
+.modal-user-label {
+
+  font-size: 11px;
+
+  color: rgba(255,255,255,0.35);
+
+  margin-top: 2px;
+
+}
+
+.modal-actions {
+
+  padding:
+  0 2rem 2rem;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 12px;
+
+}
+
+.btn {
+
+  width: 100%;
+
+  height: 52px;
+
+  border-radius: 12px;
+
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  font-size: 11px;
+
+  letter-spacing: .18em;
+
+  text-transform: uppercase;
+
+  cursor: pointer;
+
+  transition: .25s ease;
+
+}
+
+.btn-danger {
+
+  background:rgba(196,149,106,0.3);
+
+  color: white;
+
+}
+
+.btn-danger:hover {
+
+  background:rgba(196, 150, 106, 0.4);
+
+  transform: translateY(-2px);
+
+}
+
+.btn-ghost {
+
+  background: transparent;
+
+  color: rgba(255,255,255,0.6);
+
+  border: 1px solid rgba(255,255,255,0.08);
+
+}
+
+.btn-ghost:hover {
+
+  border-color: rgba(196,149,106,0.35);
+
+  color: white;
+
+}
+
+.modal-divider {
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+}
+
+.modal-divider-line {
+
+  flex: 1;
+
+  height: 1px;
+
+  background: rgba(255,255,255,0.06);
+
+}
+
+.modal-divider-text {
+
+  font-size: 10px;
+
+  color: rgba(255,255,255,0.25);
+
+  letter-spacing: .2em;
+
+  text-transform: uppercase;
+
+}
+.visuals{
+  color:white;
+}
+
+.custom-toast{
+    border: 1px solid rgba(196,149,106,0.35);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(196,149,106,0.12);
+}
+
+.swal2-title{
+    font-family: 'Jost', sans-serif !important;
+    font-size: 14px !important;
+    letter-spacing: 0.05em;
+    color: #faf8f5 !important;
+}
+
+.swal2-success-ring{
+    border-color: #c4956a !important;
+}
+
+.swal2-success-line-tip,
+.swal2-success-line-long{
+    background-color: #c4956a !important;
+}
+
+.swal2-timer-progress-bar{
+    background: #c4956a !important;
+}
+  </style>
+
+  {% block css %}{% endblock css %}
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg" id="capturenest-nav">
+  <div class="container">
+
+    <a class="navbar-brand" href="#">
+     <span>NovAVisualS<span class='visuals'></span></span>
+      <span class="brand-sub">Photo & videography </span>
+    </a>
+
+    <button class="navbar-toggler d-lg-none" type="button"
+      data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="toggler-bar"></span>
+      <span class="toggler-bar"></span>
+      <span class="toggler-bar"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-center">
+        {% with request.resolver_match.url_name as url_name %}
+        <li class="nav-item">
+          <a class="nav-link {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if url_name == 'gallery' %}active{% endif %}" href="{% url 'gallery' %}">Gallery</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if url_name == 'packages' %}active{% endif %}" href="{% url 'packages' %}">Packages</a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link {% if url_name == 'myBooking' %}active{% endif %}" href="{% url 'myBooking' %}">My Bookings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+   href="javascript:void(0)"
+   onclick="openLogoutModal()">
+   Logout
+</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'admin_loggin' %}">Admin</a>
+        </li>
+        {% endif %}
+        <li class="nav-item ms-2">
+          <a class="nav-book {% if url_name == 'booking' %}active{% endif %}" href="{% url 'booking' %}">Book a session</a>
+        </li>
+        {% endwith %}
+      </ul>
+    </div> 
+
+  </div>
+</nav>
+
+{% block body %}
+{% endblock body %}
+
+{% include "footer.html" %}
+
+
+
+
+<!-- LOGOUT MODAL -->
+
+<div class="modal-backdrop" id="logoutModal" onclick="handleBackdrop(event)">
+
+  <div class="custom-modal" role="dialog" aria-labelledby="modal-title">
+
+    <div class="modal-top">
+
+      <div class="modal-icon-wrap">
+        <i class="ti ti-logout"></i>
+      </div>
+
+      <div>
+        <p class="modal-title" id="modal-title">
+          Signing out
+        </p>
+
+        <p class="modal-sub" style="margin-top:6px">
+          You'll be returned to the login page.
+          Any unsaved changes will be lost.
+        </p>
+      </div>
+
+      <div class="modal-user-chip">
+
+        <div class="modal-avatar">
+          {{ user.username|slice:":1"|upper }}
+        </div>
+
+        <div class="modal-user-info">
+          <span class="modal-user-name">
+            {{ user.username }}
+          </span>
+
+          <span class="modal-user-label">
+            Signed in user
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-actions">
+
+      <a href="{% url 'logout' %}" class="btn btn-danger">
+
+        <i class="ti ti-logout"></i>
+
+        Yes, sign me out
+
+      </a>
+
+      <div class="modal-divider">
+
+        <div class="modal-divider-line"></div>
+
+        <span class="modal-divider-text">
+          or
+        </span>
+
+        <div class="modal-divider-line"></div>
+
+      </div>
+
+      <button
+        type="button"
+        class="btn btn-ghost"
+        onclick="closeLogoutModal()">
+
+        <i class="ti ti-arrow-left"></i>
+
+        Stay on page
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  {% if messages %}
+
+    {% for message in messages %}
+
+        <script>
+
+  Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: '{{ message.tags }}',
+    title: '{{ message }}',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+
+    background: '#1a1108',
+    color: '#faf8f5',
+
+    customClass: {
+        popup: 'custom-toast'
+    }
+
+})
+
+        </script>
+
+    {% endfor %}
+
+{% endif %}
+<script>
+  /* scroll darken */
+  const cnNav = document.getElementById('capturenest-nav');
+  window.addEventListener('scroll', () => {
+    cnNav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  
+
+function showToast(msg){
+
+    const toast =
+      document.getElementById("toast");
+
+    const toastMsg =
+      document.getElementById("toastMsg");
+
+    toastMsg.innerText = msg;
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+
+        toast.classList.remove("show");
+
+    },3000);
+
+}
+
+function openLogoutModal(){
+
+    document
+      .getElementById("logoutModal")
+      .classList.add("show");
+
+}
+
+function closeLogoutModal(){
+
+    document
+      .getElementById("logoutModal")
+      .classList.remove("show");
+
+}
+
+</script>
+{% if messages %}
+
+<script>
+
+{% for message in messages %}
+
+showToast("{{ message }}")
+
+{% endfor %}
+
+</script>
+
+{% endif %}
+
+
+
+
+{% block js %}
+{% endblock js %}
+
+
+
+
+
+
+</body>
+</html>

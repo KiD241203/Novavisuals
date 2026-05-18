@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CaptureNest Footer V2</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap');
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --cream:#faf8f5;--warm:#f2ede6;--sand:#e8e0d4;
+    --stone:#b8a898;--text:#3a3530;--soft:#7a6e65;
+    --accent:#c4956a;--accent-light:#f0e4d4;
+    --dark:#0e0a06;--dark2:#1a0f08;--dark3:#251810;
+  }
+  body{font-family:'Jost',sans-serif;background:#1a0f08}
+
+  /* ════════════════════════════════
+     BIG CTA HERO BAND
+  ════════════════════════════════ */
+  .f-hero{
+    position:relative;overflow:hidden;
+    background:linear-gradient(135deg,var(--dark2) 0%,#2a1c10 50%,var(--dark2) 100%);
+    border-top:1px solid rgba(196,149,106,0.15);
+    padding:4rem 2rem;
+    text-align:center;
+  }
+  /* decorative corner lines */
+  .f-hero::before,.f-hero::after{
+    content:'';position:absolute;
+    width:180px;height:180px;
+    border:1px solid rgba(196,149,106,0.12);
+    border-radius:50%;
+  }
+  .f-hero::before{top:-90px;left:-90px}
+  .f-hero::after{bottom:-90px;right:-90px}
+
+  .f-hero-inner{max-width:600px;margin:0 auto;position:relative;z-index:1}
+  .f-eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    margin-bottom:1.5rem;
+  }
+  .f-ey-line{width:22px;height:1px;background:var(--accent)}
+  .f-ey-text{font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:var(--accent)}
+
+  .f-hero-title{
+    font-family:'Cormorant Garamond',serif;
+    font-size:clamp(32px,5vw,56px);
+    font-weight:300;line-height:1.1;
+    color:var(--cream);letter-spacing:0.02em;
+    margin-bottom:1rem;
+  }
+  .f-hero-title em{font-style:italic;color:var(--accent)}
+
+  .f-hero-sub{
+    font-size:13px;font-weight:300;
+    color:rgba(250,248,245,0.42);
+    line-height:1.8;margin-bottom:2rem;
+    letter-spacing:0.04em;
+  }
+
+  .f-hero-ctas{display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap}
+  .btn-fill{
+    font-family:'Jost',sans-serif;font-size:10px;font-weight:500;
+    letter-spacing:0.22em;text-transform:uppercase;
+    color:var(--text);background:var(--accent);
+    border:1px solid var(--accent);border-radius:2px;
+    padding:14px 32px;display:inline-block;transition:all 0.22s;text-decoration:none;
+  }
+  .btn-fill:hover{background:var(--cream);border-color:var(--cream)}
+  .btn-ghost{
+    font-family:'Jost',sans-serif;font-size:10px;font-weight:400;
+    letter-spacing:0.22em;text-transform:uppercase;
+    color:rgba(250,248,245,0.55);
+    border:1px solid rgba(250,248,245,0.18);border-radius:2px;
+    padding:14px 32px;display:inline-block;transition:all 0.22s;text-decoration:none;
+  }
+  .btn-ghost:hover{border-color:rgba(250,248,245,0.5);color:var(--cream)}
+
+  /* availability pill */
+  .f-avail{
+    display:inline-flex;align-items:center;gap:8px;
+    margin-top:1.6rem;
+    background:rgba(196,149,106,0.08);
+    border:1px solid rgba(196,149,106,0.2);
+    border-radius:2px;padding:7px 16px;
+  }
+  .f-avail-dot{width:6px;height:6px;border-radius:50%;background:#8fb85c;animation:pulse 2s infinite;flex-shrink:0}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(143,184,92,0.5)}50%{box-shadow:0 0 0 5px rgba(143,184,92,0)}}
+  .f-avail-text{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(250,248,245,0.4)}
+  .f-avail-text span{color:var(--accent)}
+
+
+  /* ════════════════════════════════
+     MIDDLE — HORIZONTAL RULE + STATS
+  ════════════════════════════════ */
+  .f-stats{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    background:var(--dark);
+    border-top:1px solid rgba(255,255,255,0.05);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .f-stat{
+    padding:1.6rem 1.5rem;
+    border-right:1px solid rgba(255,255,255,0.05);
+    display:flex;flex-direction:column;align-items:center;gap:5px;
+    position:relative;
+  }
+  .f-stat:last-child{border-right:none}
+  .f-stat::before{
+    content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+    width:20px;height:2px;background:var(--accent);opacity:0;
+    transition:opacity 0.3s;
+  }
+  .f-stat:hover::before{opacity:1}
+  .f-stat-n{
+    font-family:'Cormorant Garamond',serif;
+    font-size:30px;font-weight:300;color:var(--cream);line-height:1;
+  }
+  .f-stat-l{font-size:9px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.28)}
+
+
+  /* ════════════════════════════════
+     MAIN FOOTER BODY
+  ════════════════════════════════ */
+  .f-body{
+    background:var(--dark);
+    padding:3rem 2rem 0;
+  }
+  .f-body-inner{max-width:1160px;margin:0 auto}
+
+  /* horizontal layout: brand left, 3 cols right, contact far right */
+  .f-grid{
+    display:grid;
+    grid-template-columns:1.6fr 3fr 1.5fr;
+    gap:3rem;
+    padding-bottom:2.5rem;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+
+  /* brand */
+  .f-brand-name{
+    font-family:'Cormorant Garamond',serif;
+    font-size:26px;font-weight:500;
+    color:var(--cream);letter-spacing:0.1em;line-height:1;
+    margin-bottom:4px;
+  }
+  .f-brand-tag{
+    font-size:8px;letter-spacing:0.32em;text-transform:uppercase;
+    color:rgba(196,149,106,0.55);display:block;margin-bottom:1.2rem;
+  }
+  .f-brand-desc{
+    font-size:12.5px;font-weight:300;
+    color:rgba(250,248,245,0.38);
+    line-height:1.85;margin-bottom:1.6rem;
+  }
+  .f-socials{display:flex;gap:7px}
+  .f-soc{
+    width:32px;height:32px;border-radius:2px;
+    border:1px solid rgba(196,149,106,0.18);
+    background:rgba(196,149,106,0.06);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:all 0.22s;text-decoration:none;
+  }
+  .f-soc:hover{border-color:var(--accent);background:rgba(196,149,106,0.14)}
+  .f-soc svg{width:13px;height:13px;stroke:rgba(250,248,245,0.38);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.22s}
+  .f-soc:hover svg{stroke:var(--accent)}
+
+  /* mid — 3 nav cols in a row */
+  .f-nav-group{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;
+  }
+  .f-col h5{
+    font-size:9px;letter-spacing:0.26em;text-transform:uppercase;
+    color:rgba(196,149,106,0.75);font-weight:500;
+    margin-bottom:1.1rem;padding-bottom:0.65rem;
+    border-bottom:1px solid rgba(196,149,106,0.12);
+  }
+  .f-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+  .f-col ul li a{
+    font-size:12.5px;font-weight:300;
+    color:rgba(250,248,245,0.38);
+    text-decoration:none;transition:color 0.18s;
+    display:flex;align-items:center;gap:7px;
+  }
+  .f-col ul li a::before{
+    content:'';width:12px;height:1px;
+    background:rgba(255,255,255,0.1);flex-shrink:0;
+    transition:width 0.22s,background 0.22s;
+  }
+  .f-col ul li a:hover{color:var(--cream)}
+  .f-col ul li a:hover::before{width:18px;background:var(--accent)}
+
+  /* right — contact vertical */
+  .f-contact-col h5{
+    font-size:9px;letter-spacing:0.26em;text-transform:uppercase;
+    color:rgba(196,149,106,0.75);font-weight:500;
+    margin-bottom:1.1rem;padding-bottom:0.65rem;
+    border-bottom:1px solid rgba(196,149,106,0.12);
+  }
+  .f-contact-list{list-style:none;display:flex;flex-direction:column;gap:13px}
+  .f-crow{display:flex;align-items:flex-start;gap:10px}
+  .f-cicon{
+    width:28px;height:28px;flex-shrink:0;
+    background:rgba(196,149,106,0.09);
+    border:1px solid rgba(196,149,106,0.2);border-radius:2px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .f-cicon svg{width:12px;height:12px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+  .f-clabel{font-size:8.5px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.24);margin-bottom:2px}
+  .f-cval{font-size:12.5px;font-weight:300;color:rgba(250,248,245,0.42)}
+  .f-cval a{color:rgba(250,248,245,0.42);text-decoration:none;transition:color 0.18s}
+  .f-cval a:hover{color:var(--accent)}
+
+  /* ════════════════════════════════
+     BOTTOM BAR
+  ════════════════════════════════ */
+  .f-bottom{
+    max-width:1160px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:1.2rem 0;flex-wrap:wrap;gap:10px;
+  }
+  .f-copy{font-size:11px;color:rgba(255,255,255,0.2);letter-spacing:0.06em}
+  .f-copy em{color:rgba(196,149,106,0.45);font-style:normal}
+  .f-legal{display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap}
+  .f-legal a{font-size:11px;color:rgba(255,255,255,0.2);text-decoration:none;transition:color 0.18s}
+  .f-legal a:hover{color:rgba(250,248,245,0.5)}
+  .f-legal-dot{width:2px;height:2px;border-radius:50%;background:rgba(255,255,255,0.15)}
+
+  /* ════════════════════════════════
+     RESPONSIVE
+  ════════════════════════════════ */
+  @media(max-width:1024px){
+    .f-grid{grid-template-columns:1fr 1fr;gap:2.5rem}
+    .f-nav-group{grid-column:1/3;grid-template-columns:repeat(3,1fr)}
+    .f-contact-col{grid-column:1/3}
+    .f-stats{grid-template-columns:repeat(2,1fr)}
+    .f-stat:nth-child(2){border-right:none}
+    .f-stat:nth-child(3){border-top:1px solid rgba(255,255,255,0.05)}
+    .f-stat:nth-child(4){border-top:1px solid rgba(255,255,255,0.05);border-right:none}
+  }
+
+  @media(max-width:720px){
+    .f-hero{padding:3rem 1.25rem}
+    .f-body{padding:2.5rem 1.25rem 0}
+    .f-grid{grid-template-columns:1fr;gap:2rem}
+    .f-nav-group{grid-column:auto;grid-template-columns:1fr 1fr}
+    .f-contact-col{grid-column:auto}
+    .f-bottom{padding:1.2rem 1.25rem;flex-direction:column;align-items:flex-start;gap:8px}
+  }
+
+  @media(max-width:480px){
+    .f-stats{grid-template-columns:repeat(2,1fr)}
+    .f-nav-group{grid-template-columns:1fr 1fr}
+    .f-hero-title{font-size:clamp(28px,8vw,40px)}
+    .f-hero-ctas{flex-direction:column;width:100%}
+    .btn-fill,.btn-ghost{width:100%;text-align:center}
+    .f-legal{gap:1rem}
+    .f-legal-dot{display:none}
+  }
+
+  @media(max-width:360px){
+    .f-nav-group{grid-template-columns:1fr}
+  }
+
+  .visuals{
+  color:#c4956a;
+}
+</style>
+</head>
+<body>
+
+<!-- ── BIG CTA BAND ── -->
+<div class="f-hero">
+  <div class="f-hero-inner">
+    <div class="f-eyebrow">
+      <div class="f-ey-line"></div>
+      <span class="f-ey-text">Kerala · Est. 2018</span>
+      <div class="f-ey-line"></div>
+    </div>
+
+    <h2 class="f-hero-title">
+      Let's create something<br><em>unforgettable.</em>
+    </h2>
+
+    <p class="f-hero-sub">Every love story, every laugh, every quiet glance deserves to be preserved forever. We're here to make sure it is.</p>
+
+    <div class="f-hero-ctas">
+      <a href="/booking/" class="btn-fill">Book your session</a>
+      <a href="/gallery/" class="btn-ghost">Explore the gallery</a>
+    </div>
+
+    <div class="f-avail">
+      <div class="f-avail-dot"></div>
+      <span class="f-avail-text">Book Now — <span>Booking for 2026</span></span>
+    </div>
+  </div>
+</div>
+
+<!-- ── STATS ROW ── -->
+<div class="f-stats">
+  <div class="f-stat">
+    <span class="f-stat-n">340+</span>
+    <span class="f-stat-l">Sessions</span>
+  </div>
+  <div class="f-stat">
+    <span class="f-stat-n">8 yrs</span>
+    <span class="f-stat-l">Experience</span>
+  </div>
+  <div class="f-stat">
+    <span class="f-stat-n">12</span>
+    <span class="f-stat-l">Awards</span>
+  </div>
+  <div class="f-stat">
+    <span class="f-stat-n">98%</span>
+    <span class="f-stat-l">5-star reviews</span>
+  </div>
+</div>
+
+<!-- ── MAIN FOOTER BODY ── -->
+<div class="f-body">
+  <div class="f-body-inner">
+
+    <div class="f-grid">
+
+      <!-- brand -->
+      <div>
+        <div class="f-brand-name">NovAVisualS</div>
+        <span class="f-brand-tag">Photography Studio · Kerala</span>
+        <p class="f-brand-desc">Artful photography and cinematic films for weddings, Pre-weding, save the date, birthday , and events — crafted with care across Kerala and beyond.</p>
+        <div class="f-socials">
+          <a class="f-soc" href="#" title="Instagram">
+            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="rgba(196,149,106,0.7)" stroke="none"/></svg>
+          </a>
+          <a class="f-soc" href="#" title="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a class="f-soc" href="#" title="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="rgba(14,9,6,0.9)" stroke="none"/></svg>
+          </a>
+          <a class="f-soc" href="#" title="WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3 nav columns -->
+      <div class="f-nav-group">
+        <div class="f-col">
+          <h5>Navigate</h5>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/gallery/">Gallery</a></li>
+            <li><a href="/booking/">Booking</a></li>
+            <li><a href="/about/">About us</a></li>
+            <li><a href="/contact/">Contact</a></li>
+          </ul>
+        </div>
+        <div class="f-col">
+          <h5>Services</h5>
+          <ul>
+            <li><a href="#">Wedding</a></li>
+            <li><a href="#">Pre-wedding</a></li>
+            <li><a href="#">save tha date</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Birthday</a></li>
+          </ul>
+        </div>
+        <div class="f-col">
+          <h5>More</h5>
+          <ul>
+            <li><a href="#">Packages</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Careers</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- contact -->
+      <div class="f-contact-col">
+        <h5>Get in touch</h5>
+        <ul class="f-contact-list">
+          <li class="f-crow">
+            <div class="f-cicon">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div class="f-clabel">Email</div>
+              <div class="f-cval"><a href="mailto:prabin@email.com">prabin@email.com</a></div>
+            </div>
+          </li>
+          <li class="f-crow">
+            <div class="f-cicon">
+              <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .18h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.09-1.09a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14.92z"/></svg>
+            </div>
+            <div>
+              <div class="f-clabel">Phone</div>
+              <div class="f-cval">+91 98765 43210</div>
+            </div>
+          </li>
+          <li class="f-crow">
+            <div class="f-cicon">
+              <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="f-clabel">Studio</div>
+              <div class="f-cval">Kerala, India</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- bottom bar -->
+    <div class="f-bottom">
+      <span class="f-copy">&copy; 2026 <em>CaptureNest</em>. All rights reserved.</span>
+      <div class="f-legal">
+        <a href="#">Privacy policy</a>
+        <div class="f-legal-dot"></div>
+        <a href="#">Terms of use</a>
+        <div class="f-legal-dot"></div>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
