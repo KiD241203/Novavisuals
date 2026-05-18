@@ -27,7 +27,11 @@ SECRET_KEY = 'django-insecure-!_=ytgx3s+&7s-%eahl==g16)sqa#v9y@7xwl74z45hy4($_mn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.onrender.com']
+ALLOWED_HOSTS = [
+    '.onrender.com',
+    '127.0.0.1',
+    'localhost'
+]
 
 
 # Application definition
@@ -121,8 +125,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
+    os.path.join(BASE_DIR, 'static')
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
