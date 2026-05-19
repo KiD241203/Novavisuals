@@ -17,7 +17,7 @@ class Works(models.Model):
     
     title = models.CharField( max_length=50)
     description = models.TextField(blank=True,null=True)
-    file = models.FileField( upload_to='works/', )
+    file = models.ImageField( upload_to='works/', )
     work_type = models.CharField(choices=WORK_TYPE, max_length=50)
     category = models.CharField(choices=CATEGORY_CHOICE, max_length=50)
     created_at = models.DateTimeField(  auto_now_add=True)
