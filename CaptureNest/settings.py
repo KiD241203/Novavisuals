@@ -138,14 +138,3 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-import os
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-
-username = "novavisuals_admin_access"
-email = "novavisuals_admin_access@gmail.com"
-password = "nova123admin"
-
-if not User.objects.filter(username=username).exists():
-    User.objects.create_superuser(username, email, password)
