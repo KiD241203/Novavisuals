@@ -25,14 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-!_=ytgx3s+&7s-%eahl==g16)sqa#v9y@7xwl74z45hy4($_mn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = [
-    '.onrender.com',
-    '127.0.0.1',
-    'localhost'
-]
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -83,18 +78,13 @@ WSGI_APPLICATION = 'CaptureNest.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=os.environ.get('DATABASE_URL')
-#     )
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL')
+    )
 }
+
+
 
 
 # Password validation
